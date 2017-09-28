@@ -1,12 +1,56 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import axios from 'axios';
 
-export default class AlbumList extends Component {
+class AlbumList extends Component {
+
+state = { albums: [] };
+
+componentWillMount() {
+  axios.get('https://rallycoding.herokuapp.com/api/music_album/')
+  .then(response => this.setState({ albums: response.data }));
+}
+
+
+renderAlbums() {
+  return this.state.albums.map(album =>
+    <Text>{album.title}</Text>
+  );
+}
+
   render() {
+    console.warn(this.state);
+    console.log(this.state);
+
     return (
       <View>
-        <Text>Albumlist</Text>
+        { this.renderAlbums() }
       </View>
     );
   }
 }
+
+export default AlbumList;
+
+/*
+
+const URL = 'https://ws.audioscrobbler.com/2.0/?method=tag.gettopartists&tag=disco&api_key=505b58d85331dcccb94f7d19e4fcf755&format=json'
+
+function getArtists(){
+
+	return fetch(URL)
+	.then(response => response.json())
+	.then(data => data.topartists.artist)
+	.then(artists => artists.map(artist => ({
+		name: artist.name,
+		image: artist.image[3]['#text'],
+		likes: 200,
+		comments: 140
+
+	})))
+}
+
+
+export { getArtists }
+
+*/
