@@ -58,7 +58,7 @@ const styles = {
   imageStyle: {
     height: 300,
     width: null,
-    flex: 1,
+    flex: 1, /* Automatic width total space */
   }
 };
 
